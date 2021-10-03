@@ -85,11 +85,10 @@
 			<version>2.12.3</version>
 		</dependency>
 
-
-
 	</dependencies>
 
 	<build>
+		<finalName>unstore-server</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -102,7 +101,7 @@
 			</plugin>
 		</plugins>
 		<!-- So that tests can be stored inside main package: -->
-		<testSourceDirectory>src/main/java/com/example</testSourceDirectory>
+		<testSourceDirectory>src/main/java/com/unstore</testSourceDirectory>
 	</build>
 
 </project>

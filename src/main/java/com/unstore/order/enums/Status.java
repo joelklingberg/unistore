@@ -1,4 +1,4 @@
-package com.unstore.order;
+package com.unstore.order.enums;
 
 public enum Status {
     // Your order is {status}.

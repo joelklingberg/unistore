@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import javax.persistence.ManyToOne;
 import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
+import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -16,11 +17,16 @@ import lombok.Getter;
 import lombok.Setter;
 import java.util.Date;
 import com.unstore.customer.Customer;
+import com.unstore.orderrow.OrderRow;
+import java.util.List;
+import com.unstore.order.enums.*;
+import java.io.Serializable;
+
 
 @Getter @Setter
 @Entity
-@Table
-public class Order {
+@Table(name = "orders")
+public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonProperty(access = Access.READ_ONLY)
@@ -28,12 +34,15 @@ public class Order {
     private Long id;
 
     private Date orderDate;
+    
     private String deliveryAddress;
+
     private Date deliveryDate;
-    private String paymentMethod;
+
+    @Enumerated(EnumType.STRING)
+    private PaymentMethod paymentMethod;
+
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToOne
-    private Customer customer;
 }

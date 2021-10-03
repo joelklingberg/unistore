@@ -6,15 +6,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import lombok.Getter;
 import lombok.Setter;
+import com.unstore.order.Order;
+import java.util.List;
+import java.io.Serializable;
 
 @Getter @Setter
 @Entity
-@Table
-public class Customer {
+@Table(name = "customers")
+public class Customer implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,4 +31,5 @@ public class Customer {
     private String address;
     private String phoneNo;
     private String email;
+
 }

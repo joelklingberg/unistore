@@ -1,4 +1,4 @@
-package com.unstore.order;
+package com.unstore.order.enums;
 
 import java.util.stream.Stream;
 
@@ -23,7 +23,7 @@ public class StatusConverter implements AttributeConverter<Status, String> {
         }
 
         return Stream.of(Status.values())
-          .filter(c -> c.getStatus().equals(status))
+          .filter(s -> s.getStatus().equals(status))
           .findFirst()
           .orElseThrow(IllegalArgumentException::new);
     }
