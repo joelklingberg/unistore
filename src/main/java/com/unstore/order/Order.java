@@ -45,4 +45,12 @@ public class Order implements Serializable {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @ManyToOne
+    @JoinColumn(name = "customerId")
+    private Customer customer;
+
+    @OneToMany
+    @JoinColumn(name = "orderId")
+    private List<OrderRow> orderRow;
+
 }

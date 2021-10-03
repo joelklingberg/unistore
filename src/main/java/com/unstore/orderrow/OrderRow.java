@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
 import javax.persistence.Transient;
@@ -41,7 +42,13 @@ public class OrderRow implements Serializable {
     private int orderRowTotal;  // Virtual column.
 
     /* RELATIONS */
+    @ManyToOne
+    @JoinColumn(name = "orderId")
+    private Order order;
 
+    @ManyToOne
+    @JoinColumn(name = "productId")
+    private Product product;
 
     /* GETTERS / SETTERS */
 

@@ -32,4 +32,7 @@ public class Customer implements Serializable {
     private String phoneNo;
     private String email;
 
+    @OneToMany
+    @JoinColumn(name = "customerId")
+    private List<Order> order;
 }
