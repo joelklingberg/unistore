@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import lombok.Getter;
@@ -15,6 +16,8 @@ import lombok.Setter;
 import com.unstore.order.Order;
 import java.util.List;
 import java.io.Serializable;
+import javax.persistence.FetchType;
+
 
 @Getter @Setter
 @Entity
@@ -32,7 +35,8 @@ public class Customer implements Serializable {
     private String phoneNo;
     private String email;
 
-    @OneToMany
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "customerId")
     private List<Order> order;
 }

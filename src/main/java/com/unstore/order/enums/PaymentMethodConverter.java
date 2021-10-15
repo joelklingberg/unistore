@@ -1,7 +1,6 @@
 package com.unstore.order.enums;
 
 import java.util.stream.Stream;
-
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 

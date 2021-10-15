@@ -11,17 +11,18 @@ import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
 import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
+import javax.persistence.CascadeType;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.Date;
 import com.unstore.customer.Customer;
-import com.unstore.orderrow.OrderRow;
 import java.util.List;
 import com.unstore.order.enums.*;
 import java.io.Serializable;
-
+import javax.persistence.FetchType;
 
 @Getter @Setter
 @Entity
@@ -45,11 +46,15 @@ public class Order implements Serializable {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customerId")
     private Customer customer;
 
-    @OneToMany
+    @Column(name = "customerId", insertable = false, updatable = false)
+    private Long customerId;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "orderId")
     private List<OrderRow> orderRow;
 

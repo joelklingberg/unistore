@@ -8,11 +8,11 @@
 		<version>2.5.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
+	<groupId>com.unstore</groupId>
 	<artifactId>springboot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springboot</name>
-	<description>Quick Start Spring Boot Project</description>
+	<name>unstore</name>
+	<description>Unstore application</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>

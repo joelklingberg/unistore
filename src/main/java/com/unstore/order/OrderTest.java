@@ -6,12 +6,11 @@ import org.springframework.test.context.TestPropertySource;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
-
 import com.unstore.order.enums.PaymentMethod;
 import com.unstore.order.enums.Status;
-import com.unstore.order.OrderController;
+import java.util.List;
 
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application-test.properties")
@@ -25,6 +24,13 @@ public class OrderTest {
 		assertThat(controller).isNotNull();
 	}
 
+	private OrderRow getTestOrderRow() {
+		OrderRow orderRow = new OrderRow();
+		orderRow.setPrice(100);
+		orderRow.setQuantity(50);
+		return orderRow;
+	}
+
 	private Order getTestOrder() {
 		Order order = new Order();
 
@@ -35,13 +41,22 @@ public class OrderTest {
         order.setPaymentMethod(PaymentMethod.DEBIT_CARD);
         order.setStatus(Status.PENDING);
 
+		// Add order rows.
+		List<OrderRow> orderRows = new ArrayList<OrderRow>();
+		
+		for(int i = 0; i < 5; i++) { 
+			orderRows.add(this.getTestOrderRow());
+		}
+
+		order.setOrderRow(orderRows);
+
 		return order;
 	}
 
 	@Test
 	public void createOrder() throws Exception {
 		Order order = getTestOrder();
-
+		List<OrderRow> orderRow = order.getOrderRow();
 		// Create order.
 		Order createdOrder = controller.createOrder(order);
 
@@ -53,6 +68,14 @@ public class OrderTest {
 		assertThat(createdOrder.getOrderDate()).isEqualTo(order.getOrderDate());
 		assertThat(createdOrder.getPaymentMethod()).isEqualTo(order.getPaymentMethod());
 		assertThat(createdOrder.getStatus()).isEqualTo(order.getStatus());
+
+		List<OrderRow> createdOrderRow = createdOrder.getOrderRow();
+
+		for(int i = 0; i < createdOrderRow.size(); i++) {
+			assertThat(createdOrderRow.get(i).getPrice()).isEqualTo(orderRow.get(i).getPrice());
+			assertThat(createdOrderRow.get(i).getQuantity()).isEqualTo(orderRow.get(i).getQuantity());
+			assertThat(createdOrderRow.get(i).getOrderRowTotal()).isEqualTo(orderRow.get(i).getOrderRowTotal());
+		}
 
 		// Retrieve order.
 		Order storedOrder = controller.getOrderById(createdOrder.getId());
