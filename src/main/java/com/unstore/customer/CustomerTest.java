@@ -5,9 +5,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
+import static com.unstore.core.configuration.TestConfig.TEST_PROPERTY_SOURCE;
 
 @SpringBootTest
-@TestPropertySource(locations = "classpath:application-test.properties")
+@TestPropertySource(locations = TEST_PROPERTY_SOURCE)
 public class CustomerTest {
 
 	@Autowired

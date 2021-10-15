@@ -8,12 +8,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+
 import com.unstore.order.enums.PaymentMethod;
 import com.unstore.order.enums.Status;
 import java.util.List;
+import static com.unstore.core.configuration.TestConfig.TEST_PROPERTY_SOURCE;
 
 @SpringBootTest
-@TestPropertySource(locations = "classpath:application-test.properties")
+@TestPropertySource(locations = TEST_PROPERTY_SOURCE)
 public class OrderTest {
 
 	@Autowired
