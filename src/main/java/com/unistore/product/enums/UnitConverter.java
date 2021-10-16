@@ -22,7 +22,7 @@ public class UnitConverter implements AttributeConverter<Unit, String>  {
         }
 
         return Stream.of(Unit.values())
-          .filter(u -> u.getUnit().equals(u))
+          .filter(u -> u.getUnit().equals(unit))
           .findFirst()
           .orElseThrow(IllegalArgumentException::new);
     }
