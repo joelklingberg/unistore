@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.unistore.customer.dto.CustomerMapperImpl;
-import com.unistore.customer.dto.request.CreateCustomerRequest;
+import com.unistore.customer.dto.request.CustomerRequest;
 import com.unistore.customer.dto.response.CustomerResponse;
 
 import static com.unistore.core.configuration.TestConfig.TEST_PROPERTY_SOURCE;
@@ -41,10 +41,10 @@ public class CustomerTest {
 	@Test
 	public void createCustomer() throws Exception {
 		Customer customer = getTestCustomer();
-		CreateCustomerRequest request = mapper.CustomerToCreateCustomerRequest(customer);
+		CustomerRequest createCustomerRequest = mapper.CustomerToCustomerRequest(customer);
 
 		// Create customer.
-		CustomerResponse response = controller.createCustomer(request);
+		CustomerResponse response = controller.createCustomer(createCustomerRequest);
 		Customer createdCustomer = mapper.CustomerResponseToCustomer(response);
 
 		// Assert that values are stored correctly.
@@ -55,22 +55,25 @@ public class CustomerTest {
 		assertThat(createdCustomer.getPhoneNo()).isEqualTo(customer.getPhoneNo());
 
 		// Retrieve customer.
-		Customer storedCustomer = controller.getCustomerById(createdCustomer.getId());
+		CustomerResponse storedCustomerResponse = controller.getCustomerById(createdCustomer.getId());
+		Customer storedCustomer = mapper.CustomerResponseToCustomer(storedCustomerResponse);
 		assertThat(storedCustomer).isNotNull();
 	}
 
 	@Test
 	public void updateCustomer() throws Exception {
-		Customer customer = getTestCustomer();
-		CreateCustomerRequest request = mapper.CustomerToCreateCustomerRequest(customer);
 
 		// Create customer.
-		CustomerResponse response = controller.createCustomer(request);
-		Customer createdCustomer = mapper.CustomerResponseToCustomer(response);
-
+		Customer customer = getTestCustomer();
+		CustomerRequest createCustomerRequest = mapper.CustomerToCustomerRequest(customer);
+		CustomerResponse createCustomerResponse = controller.createCustomer(createCustomerRequest);
+		Customer createdCustomer = mapper.CustomerResponseToCustomer(createCustomerResponse);
+		
 		// Update customer.
 		createdCustomer.setFullName("Customer New Name");
-		Customer updatedCustomer = controller.updateCustomer(createdCustomer, createdCustomer.getId());
+		CustomerRequest updateRequest = mapper.CustomerToCustomerRequest(createdCustomer);
+		CustomerResponse updateResponse = controller.updateCustomer(updateRequest, createdCustomer.getId());
+		Customer updatedCustomer = mapper.CustomerResponseToCustomer(updateResponse);
 
 		assertThat(createdCustomer.getFullName()).isEqualTo(updatedCustomer.getFullName());
 	}
@@ -78,17 +81,17 @@ public class CustomerTest {
 	@Test
 	public void deleteCustomer() throws Exception {
 		Customer customer = getTestCustomer();
-		CreateCustomerRequest request = mapper.CustomerToCreateCustomerRequest(customer);
+		CustomerRequest createCustomerRequest = mapper.CustomerToCustomerRequest(customer);
 
 		// Create customer.
-		CustomerResponse response = controller.createCustomer(request);
+		CustomerResponse response = controller.createCustomer(createCustomerRequest);
 		Customer createdCustomer = mapper.CustomerResponseToCustomer(response);
 
 		// Delete customer.
 		controller.deleteCustomer(createdCustomer.getId());
 
 		// Attempt to retrieve deleted customer.
-		Customer deletedCustomer = controller.getCustomerById(createdCustomer.getId());
+		CustomerResponse deletedCustomer = controller.getCustomerById(createdCustomer.getId());
 
 		assertThat(deletedCustomer).isNull();
 	}

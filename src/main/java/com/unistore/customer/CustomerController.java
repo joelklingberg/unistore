@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
 import com.unistore.customer.dto.CustomerMapperImpl;
-import com.unistore.customer.dto.request.CreateCustomerRequest;
+import com.unistore.customer.dto.request.CustomerRequest;
 import com.unistore.customer.dto.response.CustomerResponse;
 
 @RestController
@@ -29,29 +29,32 @@ public class CustomerController {
     }
     
     @GetMapping
-    public List<Customer> getAllCustomers() {
-        return service.getAllCustomers();
+    public List<CustomerResponse> getAllCustomers() {
+        List<Customer> customers = service.getAllCustomers();
+        return mapper.CustomersToCustomerResponses(customers);
     }
 
     @GetMapping("/{id}")
-    public Customer getCustomerById(@PathVariable Long id) {
-        return service.getCustomerById(id);
+    public CustomerResponse getCustomerById(@PathVariable Long id) {
+        Customer customer = service.getCustomerById(id);
+        return mapper.CustomerToCustomerResponse(customer);
     }
 
     @PostMapping()
-    public CustomerResponse createCustomer(@RequestBody CreateCustomerRequest request) {
-        Customer customer = mapper.CreateCustomerRequestToCustomer(request);
+    public CustomerResponse createCustomer(@RequestBody CustomerRequest request) {
+        Customer customer = mapper.CustomerRequestToCustomer(request);
         Customer createdCustomer = service.createCustomer(customer);
-        CustomerResponse response = mapper.CustomerToCustomerResponse(createdCustomer);
-        return response;
+        return mapper.CustomerToCustomerResponse(createdCustomer);
     }
     
     @PutMapping("/{id}")
-    public Customer updateCustomer(
-        @RequestBody Customer updatedCustomer,
+    public CustomerResponse updateCustomer(
+        @RequestBody CustomerRequest request,
         @PathVariable Long id
     ) {
-        return service.updateCustomer(id, updatedCustomer);
+        Customer customerToUpdate = mapper.CustomerRequestToCustomer(request);
+        Customer updatedCustomer = service.updateCustomer(id, customerToUpdate);
+        return mapper.CustomerToCustomerResponse(updatedCustomer);
     }
 
     @DeleteMapping("/{id}")
