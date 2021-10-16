@@ -1,4 +1,4 @@
-package com.unstore.producer;
+package com.unstore.manufacturer;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,8 +19,8 @@ import com.unstore.product.Product;
 
 @Getter @Setter
 @Entity
-@Table(name = "producers")
-public class Producer {
+@Table(name = "manufacturers")
+public class Manufacturer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonProperty(access = Access.READ_ONLY)
@@ -34,7 +34,7 @@ public class Producer {
 
     @JsonIgnore
     @OneToMany
-    @JoinColumn(name = "producerId")
+    @JoinColumn(name = "manufacturerId")
     private List<Product> products;
     
 }

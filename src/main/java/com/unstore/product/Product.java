@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.JoinColumn;
-import com.unstore.producer.Producer;
+import com.unstore.manufacturer.Manufacturer;
 import com.unstore.product.enums.Unit;
 
 @Getter @Setter
@@ -33,6 +33,6 @@ public class Product {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "producerId")
-    private Producer producer;
+    @JoinColumn(name = "manufacturerId")
+    private Manufacturer manufacturer;
 }
