@@ -5,6 +5,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
+
+import com.unistore.customer.dto.CustomerMapperImpl;
+import com.unistore.customer.dto.request.CreateCustomerRequest;
+import com.unistore.customer.dto.response.CustomerResponse;
+
 import static com.unistore.core.configuration.TestConfig.TEST_PROPERTY_SOURCE;
 
 @SpringBootTest
@@ -13,6 +18,9 @@ public class CustomerTest {
 
 	@Autowired
 	private CustomerController controller;
+
+	@Autowired
+	private CustomerMapperImpl mapper;
 
 	@Test
 	public void contextLoads() throws Exception {
@@ -33,9 +41,11 @@ public class CustomerTest {
 	@Test
 	public void createCustomer() throws Exception {
 		Customer customer = getTestCustomer();
+		CreateCustomerRequest request = mapper.CustomerToCreateCustomerRequest(customer);
 
 		// Create customer.
-		Customer createdCustomer = controller.createCustomer(customer);
+		CustomerResponse response = controller.createCustomer(request);
+		Customer createdCustomer = mapper.CustomerResponseToCustomer(response);
 
 		// Assert that values are stored correctly.
 		assertThat(createdCustomer).isNotNull();
@@ -52,9 +62,11 @@ public class CustomerTest {
 	@Test
 	public void updateCustomer() throws Exception {
 		Customer customer = getTestCustomer();
+		CreateCustomerRequest request = mapper.CustomerToCreateCustomerRequest(customer);
 
 		// Create customer.
-		Customer createdCustomer = controller.createCustomer(customer);
+		CustomerResponse response = controller.createCustomer(request);
+		Customer createdCustomer = mapper.CustomerResponseToCustomer(response);
 
 		// Update customer.
 		createdCustomer.setFullName("Customer New Name");
@@ -66,9 +78,11 @@ public class CustomerTest {
 	@Test
 	public void deleteCustomer() throws Exception {
 		Customer customer = getTestCustomer();
+		CreateCustomerRequest request = mapper.CustomerToCreateCustomerRequest(customer);
 
 		// Create customer.
-		Customer createdCustomer = controller.createCustomer(customer);
+		CustomerResponse response = controller.createCustomer(request);
+		Customer createdCustomer = mapper.CustomerResponseToCustomer(response);
 
 		// Delete customer.
 		controller.deleteCustomer(createdCustomer.getId());

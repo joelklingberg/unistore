@@ -11,30 +11,39 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
+import com.unistore.customer.dto.CustomerMapperImpl;
+import com.unistore.customer.dto.request.CreateCustomerRequest;
+import com.unistore.customer.dto.response.CustomerResponse;
+
 @RestController
 @RequestMapping(value = "/customers")
 public class CustomerController {
 
-    private final CustomerService customerService;
+    private final CustomerService service;
+    private final CustomerMapperImpl mapper;
 
     @Autowired
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
+    public CustomerController(CustomerService service, CustomerMapperImpl mapper) {
+        this.service = service;
+        this.mapper = mapper;
     }
     
     @GetMapping
     public List<Customer> getAllCustomers() {
-        return customerService.getAllCustomers();
+        return service.getAllCustomers();
     }
 
     @GetMapping("/{id}")
     public Customer getCustomerById(@PathVariable Long id) {
-        return customerService.getCustomerById(id);
+        return service.getCustomerById(id);
     }
 
     @PostMapping()
-    public Customer createCustomer(@RequestBody Customer customer) {
-        return customerService.createCustomer(customer);
+    public CustomerResponse createCustomer(@RequestBody CreateCustomerRequest request) {
+        Customer customer = mapper.CreateCustomerRequestToCustomer(request);
+        Customer createdCustomer = service.createCustomer(customer);
+        CustomerResponse response = mapper.CustomerToCustomerResponse(createdCustomer);
+        return response;
     }
     
     @PutMapping("/{id}")
@@ -42,12 +51,12 @@ public class CustomerController {
         @RequestBody Customer updatedCustomer,
         @PathVariable Long id
     ) {
-        return customerService.updateCustomer(id, updatedCustomer);
+        return service.updateCustomer(id, updatedCustomer);
     }
 
     @DeleteMapping("/{id}")
     public void deleteCustomer(@PathVariable Long id) {
-        customerService.deleteCustomer(id);
+        service.deleteCustomer(id);
     }
 
 }
