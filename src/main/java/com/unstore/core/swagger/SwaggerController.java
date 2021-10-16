@@ -1,4 +1,4 @@
-package com.unstore.core.swagger;
+package com.unistore.core.swagger;
 
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;

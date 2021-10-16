@@ -1,4 +1,4 @@
-package com.unstore.manufacturer;
+package com.unistore.manufacturer;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +15,7 @@ import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
 import javax.persistence.JoinColumn;
-import com.unstore.product.Product;
+import com.unistore.product.Product;
 
 @Getter @Setter
 @Entity

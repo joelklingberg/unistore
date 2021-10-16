@@ -1,4 +1,4 @@
-package com.unstore.product.enums;
+package com.unistore.product.enums;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

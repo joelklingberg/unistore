@@ -1,4 +1,4 @@
-package com.unstore.core.configuration;
+package com.unistore.core.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +16,7 @@ public class SwaggerConfig {
         // Only show application controllers in Swagger.
         return new Docket(DocumentationType.SWAGGER_2)
             .select()
-            .apis(RequestHandlerSelectors.basePackage("com.unstore"))
+            .apis(RequestHandlerSelectors.basePackage("com.unistore"))
             .build();
     }
 

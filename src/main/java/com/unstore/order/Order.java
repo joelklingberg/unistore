@@ -1,4 +1,4 @@
-package com.unstore.order;
+package com.unistore.order;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,9 +18,9 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.Date;
-import com.unstore.customer.Customer;
+import com.unistore.customer.Customer;
 import java.util.List;
-import com.unstore.order.enums.*;
+import com.unistore.order.enums.*;
 import java.io.Serializable;
 import javax.persistence.FetchType;
 

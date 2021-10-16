@@ -1,4 +1,4 @@
-package com.unstore.order.enums;
+package com.unistore.order.enums;
 
 import java.util.stream.Stream;
 

@@ -1,4 +1,4 @@
-package com.unstore.customer;
+package com.unistore.customer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;

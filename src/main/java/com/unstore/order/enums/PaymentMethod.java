@@ -1,4 +1,4 @@
-package com.unstore.order.enums;
+package com.unistore.order.enums;
 
 public enum PaymentMethod {
     DEBIT_CARD("DEBIT_CARD");

@@ -1,4 +1,4 @@
-package com.unstore;
+package com.unistore;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

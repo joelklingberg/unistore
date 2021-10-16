@@ -1,4 +1,4 @@
-package com.unstore.order;
+package com.unistore.order;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,10 +9,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import com.unstore.order.enums.PaymentMethod;
-import com.unstore.order.enums.Status;
+import com.unistore.order.enums.PaymentMethod;
+import com.unistore.order.enums.Status;
 import java.util.List;
-import static com.unstore.core.configuration.TestConfig.TEST_PROPERTY_SOURCE;
+import static com.unistore.core.configuration.TestConfig.TEST_PROPERTY_SOURCE;
 
 @SpringBootTest
 @TestPropertySource(locations = TEST_PROPERTY_SOURCE)

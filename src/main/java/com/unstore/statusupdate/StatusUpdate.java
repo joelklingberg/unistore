@@ -1,4 +1,4 @@
-package com.unstore.statusupdate;
+package com.unistore.statusupdate;
 
 public class StatusUpdate {
     

@@ -1,4 +1,4 @@
-package com.unstore.product.enums;
+package com.unistore.product.enums;
 
 public enum Unit {
     EACH("EACH");

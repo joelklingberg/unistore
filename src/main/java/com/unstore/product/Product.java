@@ -1,4 +1,4 @@
-package com.unstore.product;
+package com.unistore.product;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,8 +13,8 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.JoinColumn;
-import com.unstore.manufacturer.Manufacturer;
-import com.unstore.product.enums.Unit;
+import com.unistore.manufacturer.Manufacturer;
+import com.unistore.product.enums.Unit;
 
 @Getter @Setter
 @Entity

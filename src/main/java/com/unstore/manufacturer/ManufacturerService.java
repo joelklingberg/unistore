@@ -1,4 +1,4 @@
-package com.unstore.manufacturer;
+package com.unistore.manufacturer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
