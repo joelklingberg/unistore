@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
-
 import com.unistore.customer.dto.CustomerMapperImpl;
 import com.unistore.customer.dto.request.CustomerRequest;
 import com.unistore.customer.dto.response.CustomerResponse;
@@ -31,20 +30,20 @@ public class CustomerController {
     @GetMapping
     public List<CustomerResponse> getAllCustomers() {
         List<Customer> customers = service.getAllCustomers();
-        return mapper.CustomersToCustomerResponses(customers);
+        return mapper.customersToCustomerResponses(customers);
     }
 
     @GetMapping("/{id}")
     public CustomerResponse getCustomerById(@PathVariable Long id) {
         Customer customer = service.getCustomerById(id);
-        return mapper.CustomerToCustomerResponse(customer);
+        return mapper.customerToCustomerResponse(customer);
     }
 
     @PostMapping()
     public CustomerResponse createCustomer(@RequestBody CustomerRequest request) {
-        Customer customer = mapper.CustomerRequestToCustomer(request);
+        Customer customer = mapper.customerRequestToCustomer(request);
         Customer createdCustomer = service.createCustomer(customer);
-        return mapper.CustomerToCustomerResponse(createdCustomer);
+        return mapper.customerToCustomerResponse(createdCustomer);
     }
     
     @PutMapping("/{id}")
@@ -52,9 +51,9 @@ public class CustomerController {
         @RequestBody CustomerRequest request,
         @PathVariable Long id
     ) {
-        Customer customerToUpdate = mapper.CustomerRequestToCustomer(request);
+        Customer customerToUpdate = mapper.customerRequestToCustomer(request);
         Customer updatedCustomer = service.updateCustomer(id, customerToUpdate);
-        return mapper.CustomerToCustomerResponse(updatedCustomer);
+        return mapper.customerToCustomerResponse(updatedCustomer);
     }
 
     @DeleteMapping("/{id}")

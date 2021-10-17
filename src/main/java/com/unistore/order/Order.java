@@ -51,11 +51,8 @@ public class Order implements Serializable {
     @JoinColumn(name = "customerId")
     private Customer customer;
 
-    @Column(name = "customerId", insertable = false, updatable = false)
-    private Long customerId;
-
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "orderId")
-    private List<OrderRow> orderRow;
+    private List<OrderRow> orderRows;
 
 }

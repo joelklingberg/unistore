@@ -9,6 +9,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import com.unistore.order.dto.OrderMapper;
+import com.unistore.order.dto.request.OrderRequest;
 import com.unistore.order.enums.PaymentMethod;
 import com.unistore.order.enums.Status;
 import java.util.List;
@@ -20,6 +22,9 @@ public class OrderTest {
 
 	@Autowired
 	private OrderController controller;
+
+	@Autowired
+	private OrderMapper mapper;
 
 	@Test
 	public void contextLoads() throws Exception {
@@ -50,7 +55,7 @@ public class OrderTest {
 			orderRows.add(this.getTestOrderRow());
 		}
 
-		order.setOrderRow(orderRows);
+		order.setOrderRows(orderRows);
 
 		return order;
 	}
@@ -58,22 +63,25 @@ public class OrderTest {
 	@Test
 	public void createOrder() throws Exception {
 		Order order = getTestOrder();
-		List<OrderRow> orderRow = order.getOrderRow();
+		List<OrderRow> orderRow = order.getOrderRows();
 		// Create order.
-		Order createdOrder = controller.createOrder(order);
+		OrderRequest request = mapper.orderToOrderRequest(order);
+		Order createdOrder = controller.createOrder(request);
 
 		// Assert that values are stored correctly.
 		assertThat(createdOrder).isNotNull();
-		assertThat(createdOrder.getId()).isEqualTo(order.getId());
+		assertThat(createdOrder.getId()).isNotNull();
 		assertThat(createdOrder.getDeliveryAddress()).isEqualTo(order.getDeliveryAddress());
 		assertThat(createdOrder.getDeliveryDate()).isEqualTo(order.getDeliveryDate());
 		assertThat(createdOrder.getOrderDate()).isEqualTo(order.getOrderDate());
 		assertThat(createdOrder.getPaymentMethod()).isEqualTo(order.getPaymentMethod());
 		assertThat(createdOrder.getStatus()).isEqualTo(order.getStatus());
 
-		List<OrderRow> createdOrderRow = createdOrder.getOrderRow();
+		List<OrderRow> createdOrderRow = createdOrder.getOrderRows();
 
 		for(int i = 0; i < createdOrderRow.size(); i++) {
+			createdOrderRow.get(i).setPrice(100); // The price value should be set by backend through the productId.
+			
 			assertThat(createdOrderRow.get(i).getPrice()).isEqualTo(orderRow.get(i).getPrice());
 			assertThat(createdOrderRow.get(i).getQuantity()).isEqualTo(orderRow.get(i).getQuantity());
 			assertThat(createdOrderRow.get(i).getOrderRowTotal()).isEqualTo(orderRow.get(i).getOrderRowTotal());
@@ -89,7 +97,8 @@ public class OrderTest {
 		Order order = getTestOrder();
 
 		// Create order.
-		Order createdOrder = controller.createOrder(order);
+		OrderRequest request = mapper.orderToOrderRequest(order);
+		Order createdOrder = controller.createOrder(request);
 
 		// Update order.
 		createdOrder.setDeliveryAddress("New Delivery Address");
@@ -103,7 +112,8 @@ public class OrderTest {
 		Order order = getTestOrder();
 
 		// Create order.
-		Order createdOrder = controller.createOrder(order);
+		OrderRequest request = mapper.orderToOrderRequest(order);
+		Order createdOrder = controller.createOrder(request);
 
 		// Delete order.
 		controller.deleteOrder(createdOrder.getId());

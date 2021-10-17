@@ -11,15 +11,20 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
+import com.unistore.order.dto.OrderMapper;
+import com.unistore.order.dto.request.OrderRequest;
+
 @RestController
 @RequestMapping(value = "/orders")
 public class OrderController {
     
     private final OrderService orderService;
+    private final OrderMapper mapper;
 
     @Autowired
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, OrderMapper mapper) {
         this.orderService = orderService;
+        this.mapper = mapper;
     }
     
     @GetMapping
@@ -33,7 +38,8 @@ public class OrderController {
     }
 
     @PostMapping()
-    public Order createOrder(@RequestBody Order order) {
+    public Order createOrder(@RequestBody OrderRequest request) {
+        Order order = mapper.orderRequestToOrder(request);
         return orderService.createOrder(order);
     }
     
