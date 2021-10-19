@@ -11,6 +11,7 @@ import java.util.Calendar;
 
 import com.unistore.order.dto.OrderMapper;
 import com.unistore.order.dto.request.OrderRequest;
+import com.unistore.order.dto.response.OrderResponse;
 import com.unistore.order.enums.PaymentMethod;
 import com.unistore.order.enums.Status;
 import java.util.List;
@@ -64,18 +65,22 @@ public class OrderTest {
 	public void createOrder() throws Exception {
 		Order order = getTestOrder();
 		List<OrderRow> orderRow = order.getOrderRows();
+		
 		// Create order.
 		OrderRequest request = mapper.orderToOrderRequest(order);
-		Order createdOrder = controller.createOrder(request);
+		OrderResponse createdOrderResponse = controller.createOrder(request);
+		Order createdOrder = mapper.orderResponseToOrder(createdOrderResponse);
 
 		// Assert that values are stored correctly.
+		java.sql.Date todaysDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		assertThat(createdOrder.getOrderDate()).isCloseTo(todaysDate, 500);
+
 		assertThat(createdOrder).isNotNull();
 		assertThat(createdOrder.getId()).isNotNull();
 		assertThat(createdOrder.getDeliveryAddress()).isEqualTo(order.getDeliveryAddress());
-		assertThat(createdOrder.getDeliveryDate()).isEqualTo(order.getDeliveryDate());
-		assertThat(createdOrder.getOrderDate()).isEqualTo(order.getOrderDate());
 		assertThat(createdOrder.getPaymentMethod()).isEqualTo(order.getPaymentMethod());
 		assertThat(createdOrder.getStatus()).isEqualTo(order.getStatus());
+		assertThat(createdOrder.getDeliveryDate()).isNull(); // Delivery date should be set when order has been delivered.
 
 		List<OrderRow> createdOrderRow = createdOrder.getOrderRows();
 
@@ -88,7 +93,9 @@ public class OrderTest {
 		}
 
 		// Retrieve order.
-		Order storedOrder = controller.getOrderById(createdOrder.getId());
+		OrderResponse storedOrderResponse = controller.getOrderById(createdOrder.getId());
+		Order storedOrder = mapper.orderResponseToOrder(storedOrderResponse);
+
 		assertThat(storedOrder).isNotNull();
 	}
 
@@ -98,11 +105,14 @@ public class OrderTest {
 
 		// Create order.
 		OrderRequest request = mapper.orderToOrderRequest(order);
-		Order createdOrder = controller.createOrder(request);
+		OrderResponse createdOrderResponse = controller.createOrder(request);
+		Order createdOrder = mapper.orderResponseToOrder(createdOrderResponse);
 
 		// Update order.
 		createdOrder.setDeliveryAddress("New Delivery Address");
-		Order updatedOrder = controller.updateOrder(createdOrder, createdOrder.getId());
+		OrderRequest updateOrderRequest = mapper.orderToOrderRequest(createdOrder);
+		OrderResponse updatedOrderResponse = controller.updateOrder(updateOrderRequest, createdOrder.getId());
+		Order updatedOrder = mapper.orderResponseToOrder(updatedOrderResponse);
 
 		assertThat(createdOrder.getDeliveryAddress()).isEqualTo(updatedOrder.getDeliveryAddress());
 	}
@@ -113,13 +123,13 @@ public class OrderTest {
 
 		// Create order.
 		OrderRequest request = mapper.orderToOrderRequest(order);
-		Order createdOrder = controller.createOrder(request);
+		OrderResponse createdOrder = controller.createOrder(request);
 
 		// Delete order.
 		controller.deleteOrder(createdOrder.getId());
 
 		// Attempt to retrieve deleted order.
-		Order deletedOrder = controller.getOrderById(createdOrder.getId());
+		OrderResponse deletedOrder = controller.getOrderById(createdOrder.getId());
 
 		assertThat(deletedOrder).isNull();
 	}

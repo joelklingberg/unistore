@@ -36,7 +36,6 @@ public class OrderRow implements Serializable {
     @Transient
     private int orderRowTotal;  // Virtual column.
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orderId")
     private Order order;

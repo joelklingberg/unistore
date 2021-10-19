@@ -13,6 +13,7 @@ import java.util.List;
 
 import com.unistore.order.dto.OrderMapper;
 import com.unistore.order.dto.request.OrderRequest;
+import com.unistore.order.dto.response.OrderResponse;
 
 @RestController
 @RequestMapping(value = "/orders")
@@ -28,27 +29,32 @@ public class OrderController {
     }
     
     @GetMapping
-    public List<Order> getAllOrders() {
-        return orderService.getAllOrders();
+    public List<OrderResponse> getAllOrders() {
+        List<Order> orders = orderService.getAllOrders();
+        return mapper.ordersToOrderResponses(orders);
     }
 
     @GetMapping("/{id}")
-    public Order getOrderById(@PathVariable Long id) {
-        return orderService.getOrderById(id);
+    public OrderResponse getOrderById(@PathVariable Long id) {
+        Order order = orderService.getOrderById(id);
+        return mapper.orderToOrderResponse(order);
     }
 
     @PostMapping()
-    public Order createOrder(@RequestBody OrderRequest request) {
+    public OrderResponse createOrder(@RequestBody OrderRequest request) {
         Order order = mapper.orderRequestToOrder(request);
-        return orderService.createOrder(order);
+        Order createdOrder = orderService.createOrder(order);
+        return mapper.orderToOrderResponse(createdOrder);
     }
     
     @PutMapping("/{id}")
-    public Order updateOrder(
-        @RequestBody Order updatedOrder,
+    public OrderResponse updateOrder(
+        @RequestBody OrderRequest updateOrderRequest,
         @PathVariable Long id
     ) {
-        return orderService.updateOrder(id, updatedOrder);
+        Order orderToUpdate = mapper.orderRequestToOrder(updateOrderRequest);
+        Order updatedOrder = orderService.updateOrder(id, orderToUpdate);
+        return mapper.orderToOrderResponse(updatedOrder);
     }
 
     @DeleteMapping("/{id}")

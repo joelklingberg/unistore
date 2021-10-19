@@ -2,7 +2,11 @@ package com.unistore.order;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Calendar;
 import java.util.List;
+
+import com.unistore.order.enums.Status;
 
 @Service
 public class OrderService {
@@ -19,6 +23,9 @@ public class OrderService {
     }
 
     public Order createOrder(Order order) {
+        java.sql.Date todaysDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        order.setOrderDate(todaysDate);
+        order.setStatus(Status.PENDING);
         return orderRepository.save(order);
     }
 
