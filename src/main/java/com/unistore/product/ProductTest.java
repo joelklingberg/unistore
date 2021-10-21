@@ -5,6 +5,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
+
+import com.unistore.product.dto.ProductMapper;
+import com.unistore.product.dto.request.ProductRequest;
+import com.unistore.product.dto.response.ProductResponse;
 import com.unistore.product.enums.Unit;
 import static com.unistore.core.configuration.TestConfig.TEST_PROPERTY_SOURCE;
 
@@ -14,6 +18,9 @@ public class ProductTest {
 
 	@Autowired
 	private ProductController controller;
+
+	@Autowired
+	private ProductMapper mapper;
 
 	@Test
 	public void contextLoads() throws Exception {
@@ -35,7 +42,9 @@ public class ProductTest {
 	public void createProduct() throws Exception {
 		Product product = getTestProduct();
 		// Create product.
-		Product createdProduct = controller.createProduct(product);
+		ProductRequest createProductRequest = mapper.productToProductRequest(product);
+		ProductResponse createdProductResponse = controller.createProduct(createProductRequest);
+		Product createdProduct = mapper.productResponseToProduct(createdProductResponse);
 
 		// Assert that values are stored correctly.
 		assertThat(createdProduct).isNotNull();
@@ -45,7 +54,8 @@ public class ProductTest {
 		assertThat(createdProduct.getUnit()).isEqualTo(product.getUnit());
 
 		// Retrieve product.
-		Product storedProduct = controller.getProductById(createdProduct.getId());
+		ProductResponse storedProductResponse = controller.getProductById(createdProduct.getId());
+		Product storedProduct = mapper.productResponseToProduct(storedProductResponse);
 		assertThat(storedProduct).isNotNull();
 	}
 
@@ -54,32 +64,38 @@ public class ProductTest {
 		Product product = getTestProduct();
 
 		// Create product.
-		Product createdProduct = controller.createProduct(product);
+		ProductRequest createProductRequest = mapper.productToProductRequest(product);
+		ProductResponse createdProductResponse = controller.createProduct(createProductRequest);
+		Product createdProduct = mapper.productResponseToProduct(createdProductResponse);
 
 		// Update product.
 		createdProduct.setDescription("New description");
 		createdProduct.setName("New name");
 
-		Product updatedProduct = controller.updateProduct(createdProduct, createdProduct.getId());
+		ProductRequest updateProductRequest = mapper.productToProductRequest(createdProduct);
 
-		assertThat(createdProduct.getName()).isEqualTo(updatedProduct.getName());
-		assertThat(createdProduct.getDescription()).isEqualTo(updatedProduct.getDescription());
+		ProductResponse updatedProductResponse = controller.updateProduct(updateProductRequest, createdProduct.getId());
+
+		assertThat(createdProduct.getName()).isEqualTo(updatedProductResponse.getName());
+		assertThat(createdProduct.getDescription()).isEqualTo(updatedProductResponse.getDescription());
 	}
 	
 	@Test
 	public void deleteProduct() throws Exception {
-		Product product = getTestProduct();
+		Product testProduct = getTestProduct();
 
 		// Create product.
-		Product createdProduct = controller.createProduct(product);
+		ProductRequest createProductRequest = mapper.productToProductRequest(testProduct);
+		ProductResponse createdProductResponse = controller.createProduct(createProductRequest);
+		Product createdProduct = mapper.productResponseToProduct(createdProductResponse);
 
 		// Delete order.
 		controller.deleteProduct(createdProduct.getId());
 
 		// Attempt to retrieve deleted order.
-		Product deletedProduct = controller.getProductById(createdProduct.getId());
+		ProductResponse deletedProductResponse = controller.getProductById(createdProduct.getId());
 
-		assertThat(deletedProduct).isNull();
+		assertThat(deletedProductResponse).isNull();
 	}
 
 }
