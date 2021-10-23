@@ -25,7 +25,6 @@ public class OrderRow implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    @JsonIgnore
     private Long id;
 
     private int quantity;
@@ -46,10 +45,6 @@ public class OrderRow implements Serializable {
 
     public int getOrderRowTotal() {
         return quantity * price;
-    }
-
-    public void setOrderRowTotal() {
-        this.orderRowTotal = quantity * price;
     }
 
 }

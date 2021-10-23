@@ -17,7 +17,6 @@ import java.util.List;
 import java.io.Serializable;
 import javax.persistence.FetchType;
 
-
 @Getter @Setter
 @Entity
 @Table(name = "customers")

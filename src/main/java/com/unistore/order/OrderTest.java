@@ -1,5 +1,6 @@
 package com.unistore.order;
 
+import com.unistore.product.ProductController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
@@ -36,6 +37,7 @@ public class OrderTest {
 		OrderRow orderRow = new OrderRow();
 		orderRow.setPrice(100);
 		orderRow.setQuantity(50);
+
 		return orderRow;
 	}
 

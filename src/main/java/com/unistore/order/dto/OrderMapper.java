@@ -10,6 +10,7 @@ import java.util.List;
 import com.unistore.order.Order;
 import com.unistore.order.OrderRow;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface OrderMapper {

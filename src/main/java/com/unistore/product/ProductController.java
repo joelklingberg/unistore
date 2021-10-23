@@ -18,7 +18,7 @@ import com.unistore.product.dto.response.ProductResponse;
 @RestController
 @RequestMapping(value = "/products")
 public class ProductController {
-    
+
     private final ProductService productService;
     private final ProductMapper mapper;
 

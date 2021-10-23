@@ -27,7 +27,7 @@ public class ProductTest {
 		assertThat(controller).isNotNull();
 	}
 
-	private Product getTestProduct() {
+	public Product getTestProduct() {
 		Product product = new Product();
 
 		product.setDescription("Test description");

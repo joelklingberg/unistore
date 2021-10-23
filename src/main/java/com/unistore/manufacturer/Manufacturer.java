@@ -32,7 +32,6 @@ public class Manufacturer {
     String phoneNo;
     String customerContactEmail;
 
-    @JsonIgnore
     @OneToMany
     @JoinColumn(name = "manufacturerId")
     private List<Product> products;
