@@ -34,6 +34,5 @@ public class Customer implements Serializable {
     private String email;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customerId")
     private List<Order> order;
 }

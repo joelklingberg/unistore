@@ -50,7 +50,6 @@ public class Order implements Serializable {
     private Customer customer;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-    @JoinColumn(name = "orderId")
     private List<OrderRow> orderRows;
 
 }

@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 import com.unistore.manufacturer.Manufacturer;
 import com.unistore.product.enums.Unit;
+import org.hibernate.annotations.Fetch;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class Product {
     private Unit unit;
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manufacturerId")
     private Manufacturer manufacturer;
 }

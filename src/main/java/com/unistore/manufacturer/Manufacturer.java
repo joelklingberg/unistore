@@ -33,7 +33,6 @@ public class Manufacturer {
     String customerContactEmail;
 
     @OneToMany
-    @JoinColumn(name = "manufacturerId")
     private List<Product> products;
     
 }

@@ -40,9 +40,11 @@ public interface OrderMapper {
     List<OrderResponse> ordersToOrderResponses(List<Order> orders);
 
     // OrderRows -> OrderRowResponses
+    @Mapping(source = "product.id", target = "productId")
     List<OrderRowResponse> orderRowsToOrderRowResponses(List<OrderRow> orderRows);
 
     // OrderRowResponses -> OrderRows
+    @Mapping(source = "productId", target = "product.id")
     List<OrderRow> orderRowResponsesToOrderRows(List<OrderRowResponse> orderRowResponses);
 
 

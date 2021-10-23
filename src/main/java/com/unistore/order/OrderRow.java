@@ -10,7 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.FetchType;
 import javax.persistence.Transient;
 import javax.persistence.JoinColumn;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import lombok.Getter;
