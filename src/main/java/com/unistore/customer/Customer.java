@@ -24,8 +24,7 @@ public class Customer implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonProperty(access = Access.READ_ONLY)
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private Long id;
     
     private String fullName;

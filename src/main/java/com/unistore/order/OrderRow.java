@@ -23,7 +23,7 @@ import com.unistore.product.Product;
 public class OrderRow implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private Long id;
 
     private int quantity;
