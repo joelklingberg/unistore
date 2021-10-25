@@ -4,10 +4,10 @@ import com.unistore.order.OrderRow;
 import com.unistore.order.dto.request.OrderRowRequest;
 import com.unistore.order.dto.response.OrderRowResponse;
 import com.unistore.product.ProductService;
+import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import java.util.List;
 @Mapper(componentModel = "spring", uses = ProductService.class)
 public interface OrderRowMapper {
     List<OrderRowRequest> orderRowsToOrderRowRequests(List<OrderRow> orderRows);
