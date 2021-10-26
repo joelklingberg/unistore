@@ -1,5 +1,6 @@
 package com.unistore.manufacturer;
 
+import com.unistore.manufacturer.dto.request.ManufacturerRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,19 +47,24 @@ public class ManufacturerController {
     }
 
     @PostMapping()
-    public ManufacturerResponse createManufacturer(@RequestBody Manufacturer manufacturer) {
-        Manufacturer createdManufacturer = service.createManufacturer(manufacturer);
+    public ManufacturerResponse createManufacturer(@RequestBody ManufacturerRequest request) {
+        Manufacturer createdManufacturer = service.createManufacturer(
+                mapper.manufacturerRequestToManufacturer(request)
+        );
         ManufacturerResponse response = mapper.manufacturerToManufacturerResponse(createdManufacturer);
         return response;
     }
     
     @PutMapping("/{id}")
     public ManufacturerResponse updateManufacturer(
-        @RequestBody Manufacturer updatedManufacturer,
+        @RequestBody ManufacturerRequest request,
         @PathVariable Long id
     ) {
-        Manufacturer manufacturer = service.updateManufacturer(id, updatedManufacturer);
-        ManufacturerResponse response = mapper.manufacturerToManufacturerResponse(manufacturer);
+        Manufacturer updatedManufacturer = service.updateManufacturer(
+                id,
+                mapper.manufacturerRequestToManufacturer(request)
+        );
+        ManufacturerResponse response = mapper.manufacturerToManufacturerResponse(updatedManufacturer);
         return response;
     }
 

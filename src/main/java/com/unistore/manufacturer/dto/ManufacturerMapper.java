@@ -19,4 +19,6 @@ public interface ManufacturerMapper {
 
     // Manufacturers -> ManufacturerResponses
     List<ManufacturerResponse> manufacturersToManufacturerResponses(List<Manufacturer> manufacturers);
+
+    Manufacturer manufacturerRequestToManufacturer(ManufacturerRequest manufacturerRequest);
 }
