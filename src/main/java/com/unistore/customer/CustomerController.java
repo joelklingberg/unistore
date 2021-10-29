@@ -15,7 +15,7 @@ import com.unistore.customer.dto.request.CustomerRequest;
 import com.unistore.customer.dto.response.CustomerResponse;
 
 @RestController
-@RequestMapping(value = "/customers")
+@RequestMapping("${api}/customers")
 public class CustomerController {
 
     private final CustomerService service;

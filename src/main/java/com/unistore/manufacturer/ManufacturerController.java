@@ -16,7 +16,7 @@ import com.unistore.manufacturer.dto.ManufacturerMapper;
 import com.unistore.manufacturer.dto.response.ManufacturerResponse;
 
 @RestController
-@RequestMapping(value = "/manufacturers")
+@RequestMapping("${api}/manufacturers")
 public class ManufacturerController {
     
     private final ManufacturerService service;

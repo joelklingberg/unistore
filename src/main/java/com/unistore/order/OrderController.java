@@ -16,7 +16,7 @@ import com.unistore.order.dto.request.OrderRequest;
 import com.unistore.order.dto.response.OrderResponse;
 
 @RestController
-@RequestMapping(value = "/orders")
+@RequestMapping("${api}/orders")
 public class OrderController {
     
     private final OrderService orderService;

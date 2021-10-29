@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
-@RequestMapping("/swagger")
+@RequestMapping("${api}/swagger")
 @ApiIgnore
 public class SwaggerController {
 
 	@GetMapping("")
 	void redirectToSwagger(HttpServletResponse response) throws IOException {
-	  response.sendRedirect("/api/swagger-ui/index.html");
+	  response.sendRedirect("/swagger-ui/index.html");
 	}
     
 }
