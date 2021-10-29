@@ -13,10 +13,10 @@ export class HealthService {
             const isAlive: boolean = result === "true";
 
             if(isAlive) {
-                console.log("Backend API is answering requests.");
+                console.log("%cBackend API is answering requests.", "color: #36f014");
             }
         }, error => {
-            console.log("Backend API is not responding", error);
+            console.log("%cBackend API is not responding", "color: #ff073a" , error);
         });
     }
 
