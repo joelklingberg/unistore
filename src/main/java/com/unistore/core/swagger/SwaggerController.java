@@ -15,7 +15,7 @@ public class SwaggerController {
 
 	@GetMapping("")
 	void redirectToSwagger(HttpServletResponse response) throws IOException {
-	  response.sendRedirect("/swagger-ui/index.html");
+	  response.sendRedirect("/api/swagger-ui/index.html");
 	}
     
 }
