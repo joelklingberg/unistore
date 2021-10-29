@@ -1,22 +1,15 @@
 package com.unistore.order;
 
-import com.unistore.product.ProductController;
 import com.unistore.test.TestEntityStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.TestPropertySource;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.ArrayList;
 import java.util.Calendar;
-
 import com.unistore.order.dto.OrderMapper;
 import com.unistore.order.dto.request.OrderRequest;
 import com.unistore.order.dto.response.OrderResponse;
-import com.unistore.order.enums.PaymentMethod;
-import com.unistore.order.enums.Status;
 import java.util.List;
 import static com.unistore.core.configuration.TestConfig.TEST_PROPERTY_SOURCE;
 
