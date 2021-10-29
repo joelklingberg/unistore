@@ -3,16 +3,11 @@ package com.unistore.manufacturer;
 import com.unistore.manufacturer.dto.ManufacturerMapper;
 import com.unistore.manufacturer.dto.request.ManufacturerRequest;
 import com.unistore.manufacturer.dto.response.ManufacturerResponse;
-import com.unistore.order.Order;
-import com.unistore.order.dto.OrderMapper;
-import com.unistore.order.dto.request.OrderRequest;
-import com.unistore.order.dto.response.OrderResponse;
 import com.unistore.test.TestEntityStore;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-
 import static com.unistore.core.configuration.TestConfig.TEST_PROPERTY_SOURCE;
 import static org.assertj.core.api.Assertions.assertThat;
 
