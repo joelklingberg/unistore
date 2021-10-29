@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
 
@@ -13,10 +13,10 @@ export class HealthService {
             const isAlive: boolean = result === "true";
 
             if(isAlive) {
-                console.log("%cBackend API is answering requests.", "color: #36f014");
+                console.log("%cBackend API is responsive & answering requests.", "color: #36f014");
             }
         }, error => {
-            console.log("%cBackend API is not responding", "color: #ff073a" , error);
+            console.log("%cBackend API is not responding.", "color: #ff073a" , error);
         });
     }
 
