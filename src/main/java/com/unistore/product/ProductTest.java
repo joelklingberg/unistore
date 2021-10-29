@@ -1,5 +1,6 @@
 package com.unistore.product;
 
+import com.unistore.test.TestEntityStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
@@ -22,20 +23,16 @@ public class ProductTest {
 	@Autowired
 	private ProductMapper mapper;
 
+	@Autowired
+	private TestEntityStore testEntityStore;
+
 	@Test
 	public void contextLoads() throws Exception {
 		assertThat(controller).isNotNull();
 	}
 
 	public Product getTestProduct() {
-		Product product = new Product();
-
-		product.setDescription("Test description");
-		product.setName("Test product");
-		product.setPrice(500);
-		product.setUnit(Unit.EACH);
-
-		return product;
+		return testEntityStore.getTestProduct();
 	}
 
 	@Test

@@ -22,6 +22,7 @@ import java.util.List;
 import com.unistore.order.enums.*;
 import java.io.Serializable;
 import javax.persistence.FetchType;
+import static com.unistore.core.configuration.PersistenceConfig.ALLOW_NULL_VALUES;
 
 @Getter @Setter
 @Entity
@@ -46,7 +47,7 @@ public class Order implements Serializable {
     private Status status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customerId", nullable = false)
+    @JoinColumn(name = "customerId", nullable = ALLOW_NULL_VALUES)
     private Customer customer;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})

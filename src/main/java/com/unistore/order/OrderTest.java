@@ -1,8 +1,10 @@
 package com.unistore.order;
 
 import com.unistore.product.ProductController;
+import com.unistore.test.TestEntityStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.TestPropertySource;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,39 +30,16 @@ public class OrderTest {
 	@Autowired
 	private OrderMapper mapper;
 
+	@Autowired
+	private TestEntityStore testEntityStore;
+
 	@Test
 	public void contextLoads() throws Exception {
 		assertThat(controller).isNotNull();
 	}
 
-	private OrderRow getTestOrderRow() {
-		OrderRow orderRow = new OrderRow();
-		orderRow.setPrice(100);
-		orderRow.setQuantity(50);
-
-		return orderRow;
-	}
-
 	private Order getTestOrder() {
-		Order order = new Order();
-
-		order.setDeliveryAddress("Test address 321");
-        java.sql.Date todaysDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-        order.setDeliveryDate(todaysDate);
-        order.setOrderDate(todaysDate);
-        order.setPaymentMethod(PaymentMethod.DEBIT_CARD);
-        order.setStatus(Status.PENDING);
-
-		// Add order rows.
-		List<OrderRow> orderRows = new ArrayList<OrderRow>();
-		
-		for(int i = 0; i < 5; i++) { 
-			orderRows.add(this.getTestOrderRow());
-		}
-
-		order.setOrderRows(orderRows);
-
-		return order;
+		return testEntityStore.getTestOrder();
 	}
 
 	@Test
@@ -73,11 +52,11 @@ public class OrderTest {
 		OrderResponse createdOrderResponse = controller.createOrder(request);
 		Order createdOrder = mapper.orderResponseToOrder(createdOrderResponse);
 
+		assertThat(createdOrder).isNotNull();
+
 		// Assert that values are stored correctly.
 		java.sql.Date todaysDate = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 		assertThat(createdOrder.getOrderDate()).isCloseTo(todaysDate, 500);
-
-		assertThat(createdOrder).isNotNull();
 		assertThat(createdOrder.getId()).isNotNull();
 		assertThat(createdOrder.getDeliveryAddress()).isEqualTo(order.getDeliveryAddress());
 		assertThat(createdOrder.getPaymentMethod()).isEqualTo(order.getPaymentMethod());

@@ -15,6 +15,6 @@ public class OrderRequest {
     // Handled by backend:
     //private Date deliveryDate;
     //private Date orderDate;
-    //private Long customerId;
+    private Long customerId;
     //private Status status;
 }
