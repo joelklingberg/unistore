@@ -8,7 +8,7 @@ export class HealthService {
     }
 
     checkIfBackendIsResponsive(): void {
-        this.healthService.checkAliveUsingGET().subscribe(result => {
+        this.healthService.checkAlive().subscribe(result => {
             const isAlive: boolean = result;
 
             if(isAlive) {

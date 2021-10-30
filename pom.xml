@@ -110,6 +110,20 @@
 						<!-- ENVIRONMENT VARIABLES -->
 					</environmentVariables>
 				</configuration>
+				<executions>
+					<execution>
+						<id>pre-integration-test</id>
+						<goals>
+							<goal>start</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>post-integration-test</id>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
 			<!-- Mapstruct Processor -->
@@ -146,19 +160,39 @@
 				</configuration>
 			</plugin>
 
-			<!-- OpenAPI Swagger Generator -->
+		<!-- OpenAPI JSON file Generator -->
+			<plugin>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-maven-plugin</artifactId>
+				<version>0.2</version>
+				<executions>
+					<execution>
+						<phase>generate</phase>
+						<id>integration-test</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<outputFileName>openapi.json</outputFileName>
+					<outputDir>${project.build.directory}</outputDir>
+				</configuration>
+			</plugin>
 
+			<!-- OpenAPI Typescript-Angular Client Generator -->
 			<plugin>
 				<groupId>org.openapitools</groupId>
 				<artifactId>openapi-generator-maven-plugin</artifactId>
 				<version>5.3.0</version>
 				<executions>
 					<execution>
+						<phase>generate</phase>
 						<goals>
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<inputSpec>${project.basedir}/src/main/resources/api.json</inputSpec>
+							<inputSpec>${project.build.directory}/openapi.json</inputSpec>
 							<generatorName>typescript-angular</generatorName>
 							<output>${project.basedir}/frontend/generated/openapi</output>
 						</configuration>
