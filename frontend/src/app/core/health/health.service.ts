@@ -1,16 +1,15 @@
-import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-
+import { HealthControllerService } from "generated/openapi";
 
 @Injectable()
 export class HealthService {
 
-    constructor(private http: HttpClient) {
+    constructor(private healthService: HealthControllerService, ) {
     }
 
-    checkIfBackendIsResponsive() {
-        return this.http.get("/api/health/alive", {responseType: "text"}).subscribe(result => {
-            const isAlive: boolean = result === "true";
+    checkIfBackendIsResponsive(): void {
+        this.healthService.checkAliveUsingGET().subscribe(result => {
+            const isAlive: boolean = result;
 
             if(isAlive) {
                 console.log("%cBackend API is responsive & answering requests.", "color: #36f014");

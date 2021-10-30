@@ -60,9 +60,9 @@
 
 		<!-- Automated JSON API documentation (Swagger) -->
 		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-boot-starter</artifactId>
-			<version>3.0.0</version>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.5.2</version>
 		</dependency>
 
 		<!-- Lombok to automatically create getters/setters and constructors -->
@@ -145,6 +145,27 @@
 					
 				</configuration>
 			</plugin>
+
+			<!-- OpenAPI Swagger Generator -->
+
+			<plugin>
+				<groupId>org.openapitools</groupId>
+				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<version>5.3.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/src/main/resources/api.json</inputSpec>
+							<generatorName>typescript-angular</generatorName>
+							<output>${project.basedir}/frontend/generated/openapi</output>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 
 		</plugins>
 		<!-- So that tests can be stored inside main package: -->
